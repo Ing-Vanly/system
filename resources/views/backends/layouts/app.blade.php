@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLE/Tplugins/summernote/summernote-bs4.min.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -61,6 +62,7 @@
                     @yield('content')
                 </div>
             </section>
+
         </div>
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
@@ -99,9 +101,12 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js') }}"></script> --}}
+
+    @stack('js')
+
 </body>
 
 </html>

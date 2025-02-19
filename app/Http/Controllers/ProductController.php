@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +24,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backends.product.create');
+        $users = User::all();
+        $catagories = Category::all();
+        return view('backends.product.create', compact('users','catagories'));
     }
 
     /**
@@ -33,11 +37,10 @@ class ProductController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => 'required',
-            'brand' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            'weight' => 'required',
-            'warranty' => 'required',
+            'user_id' => 'required',
+            'category_id' => 'nullable',
             'image' => 'nullable',
         ]);
 
@@ -45,15 +48,16 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('product', 'public');
     }
+
+    $userId = $request->user_id ?? auth()->id();
+
     Product::create([
         'name' => $request->name,
-        'brand' => $request->brand,
         'price' => $request->price,
         'quantity' => $request->quantity,
-        'weight' => $request->weight,
-        'warranty' => $request->warranty,
+        'user_id' => $userId,
+        'category_id' => $request->category_id,
         'image' => $imagePath,
-        'user_id' => auth()->id(),
     ]);
     return redirect()->route('product.index')->with('success', 'product created successfully!');
 }
@@ -73,7 +77,9 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('backends.product.edit', compact('product'));
+        $users = User::all();
+        $categories = Category::all();
+        return view('backends.product.edit', compact('product','users','categories'));
     }
 
     /**
@@ -82,14 +88,15 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required',
-            'brand' => 'required',
+           'name' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            'weight' => 'required',
-            'warranty' => 'required',
+            'user_id' => 'required',
+            'category_id' => 'nullable',
             'image' => 'nullable',
         ]);
+
+
         $product = Product::findOrFail($id);
 
         // If a new image is uploaded, delete the old image from storage
@@ -104,15 +111,16 @@ class ProductController extends Controller
             // If no new image is uploaded, keep the old image path
             $imagePath = $product->image;
         }
+        $userId = $request->user_id ?? $product->user_id;
+
 
          // Update the author
         $product->update([
-            'name'=> $request->name,
-            'brand' => $request->brand,
+            'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'weight' => $request->weight,
-            'warranty' => $request->warranty,
+            'user_id' => $userId,
+            'category_id' => $request->category_id,
             'image' => $imagePath,
         ]);
 

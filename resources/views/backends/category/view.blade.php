@@ -13,16 +13,8 @@
                     <p>{{ $category->name }}</p>
                 </div>
                 <div class="col-md-6">
-                    <strong>Brand:</strong>
-                    <p>{{ $category->brand }}</p>
-                </div>
-                <div class="col-md-6">
-                    <strong>Price:</strong>
-                    <p>{{ $category->price }}</p>
-                </div>
-                <div class="col-md-6">
-                    <strong>Quantity:</strong>
-                    <p>{{ $category->quantity }}</p>
+                    <strong>Created by:</strong>
+                    <p>{{ $category->user->name }}</p>
                 </div>
                 <div class="col-md-6">
                     <strong>Profile Picture:</strong><br>

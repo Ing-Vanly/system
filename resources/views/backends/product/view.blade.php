@@ -12,10 +12,7 @@
                     <strong>Name:</strong>
                     <p>{{ $product->name }}</p>
                 </div>
-                <div class="col-md-6">
-                    <strong>Brand:</strong>
-                    <p>{{ $product->brand }}</p>
-                </div>
+
                 <div class="col-md-6">
                     <strong>Price:</strong>
                     <p>{{ $product->price }}</p>
@@ -25,13 +22,10 @@
                     <p>{{ $product->quantity }}</p>
                 </div>
                 <div class="col-md-6">
-                    <strong>Weight:</strong>
-                    <p>{{ $product->weight }}</p>
+                    <strong>Created by:</strong>
+                    <p>{{ $product->user->name }}</p>
                 </div>
-                <div class="col-md-6">
-                    <strong>Warranty:</strong>
-                    <p>{{ $product->warranty }}</p>
-                </div>
+
                 <div class="col-md-6">
                     <strong>Image:</strong><br>
                     @if ($product->image)

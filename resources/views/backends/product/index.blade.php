@@ -13,13 +13,11 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Brand</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Weight</th>
-                        <th>Warranty</th>
+                        <th>Created By</th>
+                        <th>Category</th>
                         <th>Image</th>
-                        <th>Add by</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -28,11 +26,14 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->brand }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->quantity }}</td>
-                            <td>{{ $product->weight }}</td>
-                            <td>{{ $product->warranty }}</td>
+                            <td>
+                                {{ $product->user->name ?? 'Unknown' }}
+                            </td>
+                            <td>
+                                {{ $product->category->name ?? 'Unknown' }}
+                            </td>
                             <td>
                                 @if ($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" width="50"
@@ -41,9 +42,7 @@
                                     No Image
                                 @endif
                             </td>
-                            <td>
-                                {{ $product->user->name ?? 'Unknown' }}
-                            </td>
+
                             <td>
                                 <a href="{{ route('product.show', $product->id) }}" class="btn btn-info btn-sm">Show</a>
                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -62,13 +61,11 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Brand</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Weight</th>
-                        <th>Warranty</th>
+                        <th>Created By</th>
+                        <th>Category</th>
                         <th>Image</th>
-                        <th>Add by</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

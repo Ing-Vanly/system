@@ -13,11 +13,6 @@
                             value="{{ old('name', $product->name) }}" placeholder="Enter your product name">
                     </div>
                     <div class="form-group col-6">
-                        <label for="brand">Brand</label>
-                        <input type="text" class="form-control" id="brand" name="brand"
-                            value="{{ old('brand', $product->brand) }}" placeholder="Enter your product's brand">
-                    </div>
-                    <div class="form-group col-6">
                         <label for="price">Price</label>
                         <input type="text" class="form-control" id="price" name="price"
                             value="{{ old('price', $product->price) }}" placeholder="Enter your product's price">
@@ -28,14 +23,26 @@
                             value="{{ old('quantity', $product->quantity) }}" placeholder="Enter your quantity">
                     </div>
                     <div class="form-group col-6">
-                        <label for="weight">Weight</label>
-                        <input type="text" class="form-control" id="weight" name="weight"
-                            value="{{ old('weight', $product->weight) }}" placeholder="Enter the weight">
+                        <label for="category_id">Category</label>
+                        <select class="form-control" id="category_id" name="category_id">
+                            <option value="">Select the category</option> <!-- Default option -->
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ isset($product->category_id) && $product->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-6">
-                        <label for="warranty">Warranty</label>
-                        <input type="text" class="form-control" id="warranty" name="warranty"
-                            value="{{ old('warranty', $product->warranty) }}" placeholder="Enter the warranty">
+                        <label for="user_id">Created by</label>
+                        <select class="form-control" id="user_id" name="user_id">
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ $product->user_id == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-6">
                         <label for="image">Upload Image</label>

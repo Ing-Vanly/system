@@ -9,16 +9,15 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = [
         'name',
-        'brand',
-        'price',
-        'quantity',
         'image',
-        'user_id',
+        'user_id', // Foreign Key
     ];
-    public function user()
-    {
+
+    // Define relationship: Category belongs to User
+    public function user(){
         return $this->belongsTo(User::class);
     }
-
-
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

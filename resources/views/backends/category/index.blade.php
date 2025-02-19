@@ -1,5 +1,10 @@
     @extends('backends.layouts.app')
 
+    @push('css')
+        <style>
+        </style>
+    @endpush
+
     @section('content')
         <div class="card">
             <div class="d-flex justify-content-between pt-3 px-3 align-items-center">
@@ -13,11 +18,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Brand</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Created by</th>
                             <th>Image</th>
-                            <th>Add by</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -26,19 +28,16 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->brand }}</td>
-                                <td>{{ $category->price }}</td>
-                                <td>{{ $category->quantity }}</td>
+                                <td>
+                                    {{ $category->user->name ?? 'Unknown' }}
+                                </td>
                                 <td>
                                     @if ($category->image)
                                         <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image"
-                                            width="50" height="50">
+                                            class="rounded-circle bg-light" width="50" height="50">
                                     @else
                                         No Image
                                     @endif
-                                </td>
-                                <td>
-                                    {{ $category->user->name ?? 'Unknown' }}
                                 </td>
                                 <td>
                                     <a href="{{ route('category.show', $category->id) }}"
@@ -49,7 +48,7 @@
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn"
                                             id="deleteBtn{{ $category->id }}">Delete</button>
                                     </form>
                                 </td>
@@ -60,48 +59,49 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Brand</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Created by</th>
                             <th>Image</th>
-                            <th>Add by</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
-
-        @if (session('success'))
-            <script>
-                Swal.fire({
-                    title: 'Success!',
-                    text: '{{ session('success') }}',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            </script>
-        @endif
+    @endsection
+    @push('js')
         <script>
-            @foreach ($categorys as $category)
-                document.getElementById('deleteBtn{{ $category->id }}').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('test');
+            document.addEventListener("DOMContentLoaded", function() {
+                // Success message alert
+                @if (session('success'))
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: 'You won\'t be able to revert this!',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, cancel!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.closest('form').submit();
-                        }
+                        title: 'Success!',
+                        text: '{{ session('success') }}',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                @endif
+
+                // Handle delete confirmation for all delete buttons
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault(); // Prevent form submission before confirmation
+                        let form = this.closest('form');
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: 'This action cannot be undone!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, cancel!',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Only submit the form if confirmed
+                            }
+                        });
                     });
                 });
-            @endforeach
+            });
         </script>
-    @endsection
+    @endpush

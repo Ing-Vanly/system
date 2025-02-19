@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backends.category.create');
+        $users = User::all();
+        return view('backends.category.create',compact('users'));
     }
 
     /**
@@ -33,10 +35,8 @@ class CategoryController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => 'required',
-            'brand' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
             'image' => 'nullable',
+            'user_id' => 'nullable',
         ]);
 
         $imagePath = null;
@@ -44,14 +44,12 @@ class CategoryController extends Controller
             $imagePath = $request->file('image')->store('images', 'public');
         }
 
+        $userId = $request->user_id ?? auth()->id();
+
         Category::create([
             'name'=> $request->name,
-            'brand'  => $request->brand,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
             'image' => $imagePath,
-            'user_id' => auth()->id(),
-
+            'user_id' =>$userId,
         ]);
         return redirect()->route('category.index')->with('success', 'category created successfully!');
     }
@@ -72,7 +70,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = Category::findOrFail($id);
-        return view('backends.category.edit', compact('category'));
+        $users = User::all();
+        return view('backends.category.edit', compact('category','users'));
     }
 
     /**
@@ -82,11 +81,10 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'brand' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
             'image' => 'nullable',
+            'user_id' => 'nullable',
         ]);
+
         $category = Category::findOrFail($id);
 
         // If a new image is uploaded, delete the old image from storage
@@ -102,13 +100,16 @@ class CategoryController extends Controller
             $imagePath = $category->image;
         }
 
-         // Update the author
+        $userId = $request->user_id ?? $category->user_id;
+
+        // dd($userId);
+        // dd($request->all());
+
+        // Update the author
         $category->update([
-            'first_name'=> $request->name,
-            'brand' => $request->brand,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
+            'name'=> $request->name,
             'image' => $imagePath,
+            'user_id'=> $userId,
         ]);
 
         return redirect()->route('category.index')->with('success', 'Categorys updated successfully!');

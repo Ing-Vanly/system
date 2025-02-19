@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -12,21 +12,15 @@
                             placeholder="Enter your product name">
                     </div>
                     <div class="form-group col-6">
-                        <label for="brand">Brand</label>
-                        <input type="text" class="form-control" id="brand" name="brand"
-                            placeholder="Enter your product's brand">
+                        <label for="user_id">Select User</label>
+                        <select class="form-control" id="user_id" name="user_id">
+                            <option value="">Select a user</option> <!-- Default Option -->
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group col-6">
-                        <label for="price">Price</label>
-                        <input type="text" class="form-control" id="price" name="price"
-                            placeholder="Enter your product's price">
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity"
-                            placeholder="Enter your quantity">
-                    </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-12">
                         <label for="image">Upload Image</label>
                         <div class="input-group">
                             <div class="custom-file">

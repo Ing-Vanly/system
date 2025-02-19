@@ -14,22 +14,17 @@
                     </div>
 
                     <div class="form-group col-6">
-                        <label for="brand">Brand</label>
-                        <input type="text" class="form-control" id="brand" name="brand"
-                            value="{{ old('brand', $category->brand) }}" placeholder="Enter your category's brand">
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="price">Price</label>
-                        <input type="text" class="form-control" id="price" name="price"
-                            value="{{ old('price', $category->price) }}" placeholder="Enter your category's price">
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity"
-                            value="{{ old('quantity', $category->quantity) }}" placeholder="Enter your quantity">
+                        <label for="user_id">Created by</label>
+                        <select class="form-control" id="user_id" name="user_id">
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ $category->user_id == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-12">
                         <label for="image">Upload Image</label>
                         <div class="input-group">
                             <div class="custom-file">
