@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,9 +32,7 @@ Route::put('/product/{id}', [ProductController::class, 'update'])->name('product
 Route::delete('product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
-
-
-
-
+//Frontend
+Route::get('/front-product', [FrontController::class, 'index'])->name('front.index');
 
 

@@ -18,7 +18,7 @@
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
-                        </select>
+                        </select>   
                     </div>
                     <div class="form-group col-12">
                         <label for="image">Upload Image</label>

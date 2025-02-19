@@ -28,7 +28,7 @@
                             <option value="">Select the category</option> <!-- Default option -->
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    {{ isset($product->category_id) && $product->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $product->category_id == $category->id ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -37,6 +37,7 @@
                     <div class="form-group col-6">
                         <label for="user_id">Created by</label>
                         <select class="form-control" id="user_id" name="user_id">
+                            {{-- Loop all user --}}
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}" {{ $product->user_id == $user->id ? 'selected' : '' }}>
                                     {{ $user->name }}
