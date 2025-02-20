@@ -34,5 +34,7 @@ Route::delete('product/{id}', [ProductController::class, 'destroy'])->name('prod
 
 //Frontend
 Route::get('/front-product', [FrontController::class, 'index'])->name('front.index');
+Route::get('front-product-/{id}', [FrontController::class, 'show'])->name('front.show');
+
 
 

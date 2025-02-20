@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Details</title>
-    <link rel="stylesheet" href="{{asset('front/styles_02.css')}}">
-</head>
-<body>
-
-    <div class="details">
-        <img src="car-image.jpg" alt="Car Image">
-        <h1>Product Name</h1>
-        <p><strong>Description:</strong> A four-door car with a separate trunk.</p>
-        <p><strong>Engine Type:</strong> Petrol & Electric Hybrid</p>
-        <p><strong>Price:</strong> $19.99</p>
-        <a href="index.html" class="back-btn">Back to Home</a>
+@extends('frontends.layouts.app')
+@section('contend')
+    <div class="product-container">
+        <div class="product-image">
+            <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <h1 class="product-title">{{ $product->name }}</h1>
+            <p class="product-description">
+                This is a detailed description of the product. It includes information about the features,
+                materials, and benefits of the product. You can add as much text as needed here.
+            </p>
+            <div class="price-section">
+                <p>Price: {{ $product->price }}</p>
+                {{-- <p class="discounted-price">$99.99</p>
+                    <p class="savings">You save $50.00 (33%)</p> --}}
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart">Buy Now</button>
+        </div>
     </div>
 
-</body>
-</html>
+@endsection

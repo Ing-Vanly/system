@@ -13,15 +13,15 @@
             <!-- The slideshow/carousel -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('assets/HD-wallpaper-plain-black-black.jpg') }}" alt="Los Angeles" class="d-block"
+                    <img src="{{ asset('assets/banner.jpg') }}" alt="Los Angeles" class="d-block"
                         style="width:100%">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('assets/HD-wallpaper-plain-black-black.jpg') }}" alt="Chicago" class="d-block"
+                    <img src="{{ asset('assets/banner_02.jpg') }}" alt="Chicago" class="d-block"
                         style="width:100%">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('assets/HD-wallpaper-plain-black-black.jpg') }}" alt="New York" class="d-block"
+                    <img src="{{ asset('assets/banner_03.jpg') }}" alt="New York" class="d-block"
                         style="width:100%">
                 </div>
             </div>
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="center_text" id="product">
-        <h2>Popular Product</h2>
+        <h2>Popular Food</h2>
     </div>
     <div class="container">
         <div class="row">
@@ -47,14 +47,13 @@
                             <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image">
                         </div>
                         <h3>{{ $product->name }}</h3>
-                        {{-- <p>A four-door car with a separate trunk</p>
-                <p>A mix of petrol and electric power</p> --}}
-                        <p>$19.99</p>
-                        <button class="btn btn-primary">View all Detail</button>
+                        <p>Healthy Food</p>
+                        <p>Price: {{ $product->price }}</p>
+                        <a href="{{ route('front.show', $product->id) }}" class="btn btn-primary">View all Detail</a>
                         <button>Add to Cart</button>
                     </div>
                 </div>
             @endforeach
-
+        </div>
         </div>
     @endsection

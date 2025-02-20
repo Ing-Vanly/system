@@ -34,7 +34,7 @@
     </div>
 </div>
 <div class="center_text" id="product">
-    <h2>Popular Product</h2>
+    <h2>Popular Product</h2>    
 </div>
 <div class="container">
     <div class="row">

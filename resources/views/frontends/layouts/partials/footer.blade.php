@@ -29,7 +29,7 @@
         <div class="footer-box">
             <h3>Our Services</h3>
             <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Warranty & Repair</a></li>
+            <li><a href="#">Refund</a></li>
             <li><a href="#">Track Your Order</a></li>
             <li><a href="#">Returns Policy</a></li>
             <li><a href="#">My Account</a></li>
@@ -44,4 +44,9 @@
             <li><a href="#">Siem Reap, Streets 06, Cambodia</a></li>
         </div>
     </section>
+    <div class="subscribe-container">
+        <h5>Subscribe</h5>
+        <input type="email" placeholder="Enter your email">
+        <button class="button_footer">Subscribe</button>
+    </div>
 </div>
